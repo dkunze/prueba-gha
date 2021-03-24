@@ -22,4 +22,3 @@ jobs:
           context: .
           load: true
           tags: ${{ github.repository }}
-    - run: docker push ${{ env.IMAGE }}:${{ env.GIT_SHA }}
