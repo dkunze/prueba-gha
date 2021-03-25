@@ -6,25 +6,25 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
-    -
-        name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v1
-    - 
-        name: Login to DockerHub
-        uses: docker/login-action@v1
-        with:
+  
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v1
+  
+    - name: Login to DockerHub
+      uses: docker/login-action@v1
+      with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
-    - 
-        name: Build and push
-        uses: docker/build-push-action@v2
-        with:
-<<<<<<< HEAD
-          context: .
-          load: true
-          tags: ${{ github.repository }}
-    - run: docker push ${{ env.IMAGE }}:${{ env.GIT_SHA }}
-=======
+  
+    - name: Build and push
+      uses: docker/build-push-action@v2
+      with:
           push: true
           tags: dkunzevich/prueba-gha:latest
->>>>>>> 0dc3e982955dded4e0343d2dd0f14fdbdb7fe90d
+             
+    - name: deploy to k8s
+      uses: wahyd4/kubectl-helm-action@master
+      env:
+        KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
+      with:
+        args: kubectl apply -f manifest.yaml          
