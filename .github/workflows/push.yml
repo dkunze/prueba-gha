@@ -27,13 +27,7 @@ jobs:
       env:
         KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
       with:
-        args: set image --record deployment/my-app prueba-gha=${{ github.repository }}:${{ github.sha }}
-
-    - name: deploy postgres to cluster with HELM
-      uses: wahyd4/kubectl-helm-action@master
-      env:
-        KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
-      with:
         args: |
+          set image --record deployment/my-app prueba-gha=${{ github.repository }}:${{ github.sha }}
           helm repo add bitnami https://charts.bitnami.com/bitnami
           helm upgrade --install postgres -n data bitnami/postgresql        
