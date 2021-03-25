@@ -21,10 +21,10 @@ jobs:
       with:
           push: true
           tags: dkunzevich/prueba-gha:latest
-             
+
     - name: deploy to k8s
       uses: wahyd4/kubectl-helm-action@master
       env:
         KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
       with:
-        args: kubectl apply -f manifest.yaml          
+        args: set image --record deployment/my-app prueba-gha=${{ github.repository }}:${{ github.sha }}
