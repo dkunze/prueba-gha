@@ -19,7 +19,12 @@ jobs:
         name: Build and push
         uses: docker/build-push-action@v2
         with:
+<<<<<<< HEAD
           context: .
           load: true
           tags: ${{ github.repository }}
     - run: docker push ${{ env.IMAGE }}:${{ env.GIT_SHA }}
+=======
+          push: true
+          tags: dkunzevich/prueba-gha:latest
+>>>>>>> 0dc3e982955dded4e0343d2dd0f14fdbdb7fe90d
